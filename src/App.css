@@ -1,38 +1,365 @@
-.App {
-  text-align: center;
+@import url('https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&family=Poppins:wght@300;400;600&family=Clicker+Script&display=swap');
+
+:root {
+    --primary: #ff4d6d;
+    --secondary: #ff85a1;
+    --text-dark: hwb(295 1% 81%);
+    --glass: rgba(255, 255, 255, 0.45);
+    --bg-gradient: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 99%);
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+html {
+    scroll-behavior: smooth;
 }
 
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+body {
+    font-family: 'Poppins', sans-serif;
+    background: var(--bg-gradient);
+    color: var(--text-dark);
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
-.App-link {
-  color: #61dafb;
+/* ---------------- DECORATIONS ---------------- */
+.decorations {
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: -1;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.item {
+    position: absolute;
+    bottom: -50px;
+    animation: floatUp 12s infinite linear;
+    opacity: 0.7;
 }
+
+@keyframes floatUp {
+    0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+    10% { opacity: 1; }
+    100% { transform: translateY(-120vh) rotate(360deg); opacity: 0; }
+}
+
+/* ---------------- PRANK OVERLAY ---------------- */
+#cake-overlay {
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, #ffe0f0 0%, #ffc0cb 100%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 3000;
+}
+
+.prank-wrapper {
+    width: 100%;
+    height: 100%;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.tang-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.3rem;
+    position: absolute;
+    top: 12%;
+    text-align: center;
+    width: 100%;
+}
+
+.cute-prank-btn {
+    padding: 15px 30px;
+    background: var(--primary);
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 10px 20px rgba(255, 77, 109, 0.3);
+    animation: popIn 0.3s ease;
+}
+
+.cute-prank-btn:hover {
+    background: var(--secondary);
+    transform: scale(1.05);
+}
+
+@keyframes popIn {
+    from { transform: scale(0); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+/* ---------------- CAKE SECTION ---------------- */
+.cake-slice-container {
+    text-align: center;
+}
+
+.cake-slice {
+    position: relative;
+    cursor: pointer;
+    animation: cakePulse 2s infinite;
+}
+
+.cake-img {
+    width: clamp(230px, 80vw, 380px);
+}
+
+@keyframes cakePulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+}
+
+.tap-text {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2rem;
+    margin-top: 20px;
+    animation: bounceText 1.5s infinite;
+}
+
+@keyframes bounceText {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* ---------------- NAVBAR ---------------- */
+.navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    background: rgba(255,255,255,0.6);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 15px 5%;
+}
+
+.navbar-logo {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.2rem;
+    color: var(--primary);
+}
+
+.navbar-links {
+    list-style: none;
+    display: flex;
+    gap: 25px;
+}
+
+.navbar-links a {
+    text-decoration: none;
+    color: var(--text-dark);
+    font-weight: 600;
+}
+
+/* ---------------- MAIN ---------------- */
+.main-wrapper {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: 1s ease;
+}
+
+.main-wrapper.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* ---------------- HERO ---------------- */
+.hero-section {
+    min-height: 100svh;
+    padding-top: 90px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: #3a031a;
+    position: relative;
+}
+
+.hero-video {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+.hero-content-overlay {
+    background: rgba(0,0,0,0.35);
+    padding: 30px;
+    border-radius: 20px;
+    color: #fff;
+}
+
+.hero-heading {
+    font-family: 'Dancing Script', cursive;
+    font-size: clamp(3rem, 8vw, 6rem);
+    color: var(--primary);
+}
+
+/* ---------------- CARDS ---------------- */
+.cards-section {
+    max-width: 900px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.card {
+    display: flex;
+    gap: 25px;
+    align-items: center;
+    margin-bottom: 50px;
+    background: var(--glass);
+    backdrop-filter: blur(10px);
+    padding: 25px;
+    border-radius: 30px;
+}
+
+.card:nth-child(even) {
+    flex-direction: row-reverse;
+}
+
+.card-img img {
+    width: 260px;
+    height: 320px;
+    object-fit: cover;
+    border-radius: 20px;
+}
+
+.card-text h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.4rem;
+    color: var(--primary);
+}
+
+/* ---------------- REPLY SECTION (FIXED) ---------------- */
+.reply-section {
+    max-width: 700px;
+    margin: 80px auto;
+    padding: 0 20px;
+    text-align: center;
+}
+
+.reply-section h2 {
+    font-family: 'Dancing Script', cursive;
+    font-size: 2.5rem;
+    color: var(--primary);
+    margin-bottom: 25px;
+}
+
+.reply-card {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    align-items: center;
+}
+
+.reply-card textarea {
+    width: 100%;
+    height: 140px;
+    border-radius: 20px;
+    padding: 15px;
+    border: 2px solid var(--secondary);
+    font-size: 1rem;
+    resize: none;
+    outline: none;
+}
+
+.whatsapp-btn {
+    padding: 14px 40px;
+    background: #25D366;
+    color: #fff;
+    border: none;
+    border-radius: 50px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* ---------------- FOOTER ---------------- */
+.fancy-footer {
+    text-align: center;
+    padding: 60px 20px;
+    background: var(--glass);
+}
+
+.footer-name-new {
+    font-family: 'Clicker Script', cursive;
+    font-size: 3.2rem;
+    color: var(--primary);
+    animation: floating 3s infinite;
+}
+
+@keyframes floating {
+    0%,100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+}
+
+/* ---------------- MOBILE ---------------- */
+@media (max-width: 768px) {
+
+    .navbar {
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px 20px;
+    }
+
+    .navbar-links {
+        flex-wrap: wrap;
+        justify-content: center;
+    }
+
+    .card,
+    .card:nth-child(even) {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .card-img img {
+        width: 100%;
+        height: 260px;
+    }
+
+    .hero-content-overlay {
+        padding: 20px;
+    }
+}
+/* SCROLL ANIMATION FOR CARDS */
+.card-animate {
+    opacity: 0;
+    transition: all 0.8s ease;
+}
+
+.from-left {
+    transform: translateX(-80px);
+}
+
+.from-right {
+    transform: translateX(80px);
+}
+
+.card-show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+/* Mobile friendly */
+@media (max-width: 768px) {
+    .from-left,
+    .from-right {
+        transform: translateY(40px);
+    }
+}
+
